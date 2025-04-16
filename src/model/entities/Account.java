@@ -1,13 +1,13 @@
-package model;
+package model.entities;
 
-public class Record {
+public class Account {
     private int ID;
     private int bookID;
     private int personID;
     private String issueDate;
     private String givenDate;
 
-    public Record(int ID, int bookID, int personID, String issueDate, String givenDate) {
+    public Account(int ID, int bookID, int personID, String issueDate, String givenDate) {
         this.ID = ID;
         this.bookID = bookID;
         this.personID = personID;
@@ -48,7 +48,7 @@ public class Record {
     }
 
     public String getGivenDate() {
-        return issueDate;
+        return givenDate;
     }
 
     public void setGivenDate(String givenDate) {

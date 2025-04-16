@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Person;
+import model.entities.Person;
 
 public class PersonReader extends CSVReader {
     private List<Person> persons;
@@ -38,7 +38,7 @@ public class PersonReader extends CSVReader {
         }
     }
 
-    public List<Person> getPerons() {
+    public List<Person> getPersons() {
         return persons;
     }
 }

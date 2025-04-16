@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Book;
+import model.entities.Book;
 
 public class BookReader extends CSVReader {
     private List<Book> books;
