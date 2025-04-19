@@ -1,26 +1,17 @@
 package model.entities;
 
-public class Book {
-    private int ID;
+public class Book extends Entity {
     private String author;
     private String name;
-    private String writingYear;
+    private int writingYear;
     private int quanitity;
 
-    public Book(int ID, String author, String name, String writingYear, int quanitity) {
-        this.ID = ID;
+    public Book(int ID, String author, String name, int writingYear, int quanitity) {
+        super(ID);
         this.author = author;
         this.name = name;
         this.writingYear = writingYear;
         this.quanitity = quanitity;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getAuthor() {
@@ -39,11 +30,11 @@ public class Book {
         this.name = name;
     }
 
-    public String getWritingYear() {
+    public int getWritingYear() {
         return writingYear;
     }
 
-    public void setWritingYear(String writingYear) {
+    public void setWritingYear(int writingYear) {
         this.writingYear = writingYear;
     }
 

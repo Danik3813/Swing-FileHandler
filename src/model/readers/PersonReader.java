@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.entities.Person;
 
-public class PersonReader extends CSVReader {
+public class PersonReader extends CSVReader<Person> {
     private List<Person> persons;
 
     public PersonReader(String FILE_NAME) {
@@ -17,11 +17,12 @@ public class PersonReader extends CSVReader {
 
     @Override
     public void read() {
-        try (BufferedReader personReader = new BufferedReader(new FileReader(FILE_NAME))) {
-            var personLine = personReader.readLine();
-            while ((personLine = personReader.readLine()) != null) {
+        try (BufferedReader personsReader = new BufferedReader(new FileReader(FILE_NAME))) {
+            var personLine = personsReader.readLine();
+            while ((personLine = personsReader.readLine()) != null) {
                 String[] CSVperson = personLine.split(DELIMETER);
-                // Добавить проверку на число элементов строки
+                if (CSVperson.length != 4) 
+                    throw new Exception("The count of elements in CSV-line is not equals than 4");
                 var person = new Person(
                     Integer.parseInt(CSVperson[0]),
                     CSVperson[1],
@@ -38,7 +39,8 @@ public class PersonReader extends CSVReader {
         }
     }
 
-    public List<Person> getPersons() {
+    @Override
+    public List<Person> getEntities() {
         return persons;
     }
 }

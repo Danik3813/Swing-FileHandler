@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.entities.Book;
 
-public class BookReader extends CSVReader {
+public class BookReader extends CSVReader<Book> {
     private List<Book> books;
 
     public BookReader(String FILE_NAME) {
@@ -21,12 +21,13 @@ public class BookReader extends CSVReader {
             var bookLine = booksReader.readLine();
             while ((bookLine = booksReader.readLine()) != null) {
                 String[] CSVbook = bookLine.split(DELIMETER);
-                // Добавить проверку на число элементов строки
+                if (CSVbook.length != 5) 
+                    throw new Exception("The count of elements in CSV-line is not equals than 5");
                 var book = new Book(
                     Integer.parseInt(CSVbook[0]),
                     CSVbook[1],
                     CSVbook[2],
-                    CSVbook[3],
+                    Integer.parseInt(CSVbook[3]),
                     Integer.parseInt(CSVbook[4])
                 );
                 books.add(book);
@@ -39,7 +40,8 @@ public class BookReader extends CSVReader {
         }
     }
 
-    public List<Book> getBooks() {
+    @Override
+    public List<Book> getEntities() {
         return books;
     }
 }

@@ -1,24 +1,15 @@
 package model.entities;
 
-public class Person {
-    private int ID;
+public class Person extends Entity {
     private String name;
     private String surname;
     private String patronymic;
 
     public Person(int ID, String name, String surname, String patronymic) {
-        this.ID = ID;
+        super(ID);
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getName() {

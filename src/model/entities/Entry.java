@@ -1,26 +1,17 @@
 package model.entities;
 
-public class Account {
-    private int ID;
+public class Entry extends Entity {
     private int bookID;
     private int personID;
     private String issueDate;
     private String givenDate;
 
-    public Account(int ID, int bookID, int personID, String issueDate, String givenDate) {
-        this.ID = ID;
+    public Entry(int ID, int bookID, int personID, String issueDate, String givenDate) {
+        super(ID);
         this.bookID = bookID;
         this.personID = personID;
         this.issueDate = issueDate;
         this.givenDate = givenDate;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public int getBookID() {
