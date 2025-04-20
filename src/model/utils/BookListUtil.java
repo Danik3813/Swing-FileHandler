@@ -5,7 +5,7 @@ import model.entities.Book;
 import model.exceptions.EntityException;
 import model.exceptions.NamesOfEntitiesExceptions;
 
-public class BookListUtil implements EntityListUtil<Book> {
+public class BookListUtil implements SingleEntityCorrectInterface<Book> {
     @Override
     public void isEntityCorrect(Book book) throws EntityException {
         if (book.getID() < 0) 
@@ -16,7 +16,7 @@ public class BookListUtil implements EntityListUtil<Book> {
                 throw new EntityException(NamesOfEntitiesExceptions.NAME_EXCEPTION.getName());
         }
 
-        // TODO: возможно добавить проверку на наличие цифр в книге
+        // TODO: возможно добавить проверку на наличие цифр в названии книги
 
         if (book.getWritingYear() < 0 || book.getWritingYear() > Year.now().getValue())
             throw new EntityException(NamesOfEntitiesExceptions.YEAR_EXCEPTION.getName());
