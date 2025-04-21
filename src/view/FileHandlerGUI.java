@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import controller.listeners.BookButtonListener;
 
@@ -16,6 +18,7 @@ public class FileHandlerGUI extends JFrame {
     private EntityTableModel bookTableModel;
     private EntityTableModel personTableModel;
     private EntityTableModel entriesTableModel;
+    private final static JTabbedPane tablePane = new JTabbedPane(JTabbedPane.TOP);
 
     public FileHandlerGUI(String title) {
         super(title);
@@ -38,71 +41,63 @@ public class FileHandlerGUI extends JFrame {
         this.setLayout(new GridBagLayout());
 
         // Инициализация компонентов окна
+        initializeDataTablePane();
         initializeControlPanel();
-        initializeBookTable();
-        initializeInputPanel();
-        initializeFeaturesPanel();
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    private void initializeControlPanel() {
+    private void initializeDataTablePane() {
         // Инициализация менеджера расположения
         GridBagConstraints gridManager = new GridBagConstraints();
         gridManager.gridx = 0; gridManager.gridy = 0;
-        gridManager.weightx = 1.0; gridManager.weighty = 0.1;
+        gridManager.weightx = 1.0; gridManager.weighty = 0.8;
+        gridManager.fill = GridBagConstraints.BOTH;
 
         final String BOOKS_NAME = "Книги";
         final String PERSONS_NAME = "Читатели";
         final String ENTRIES_NAME = "Ведомость";
 
-        JButton booksButton = new JButton(BOOKS_NAME);
-        booksButton.addActionListener(new BookButtonListener(this));
-        JButton personsButton = new JButton(PERSONS_NAME);
-        JButton entriesButton = new JButton(ENTRIES_NAME);
-        JPanel controlPanel = new JPanel(new GridLayout(1, 3, 5, 0));
-
-        controlPanel.add(booksButton);
-        controlPanel.add(personsButton);
-        controlPanel.add(entriesButton);
-
-        this.add(controlPanel, gridManager);
-    }
-
-    public void initializeBookTable() {
-        // Инициализация менеджера расположения
-        GridBagConstraints gridManager = new GridBagConstraints();
-        gridManager.gridx = 0; gridManager.gridy = 1;
-        gridManager.weightx = 1.0; gridManager.weighty = 0.5;
-        gridManager.fill = GridBagConstraints.BOTH;
-
         bookTableModel = new EntityTableModel(TableHeaders.BOOKS_HEADER);
         JTable bookTable = new JTable(bookTableModel);
-        bookTable.getTableHeader().setReorderingAllowed(false);
-
         JScrollPane bookScrollPane = new JScrollPane(bookTable);
-        this.add(bookScrollPane, gridManager);
-    }
-
-    public void initializePersonTable() {
-        // Инициализация менеджера расположения
-        GridBagConstraints gridManager = new GridBagConstraints();
-        gridManager.gridx = 0; gridManager.gridy = 1;
-        gridManager.weightx = 1.0; gridManager.weighty = 0.5;
-        gridManager.fill = GridBagConstraints.BOTH;
+        tablePane.addTab(BOOKS_NAME, bookScrollPane);
 
         personTableModel = new EntityTableModel(TableHeaders.PERSONS_HEADER);
         JTable personTable = new JTable(personTableModel);
-
         JScrollPane personScrollPane = new JScrollPane(personTable);
-        this.add(personScrollPane, gridManager);
-    } 
+        tablePane.addTab(PERSONS_NAME, personScrollPane);
 
-    private void initializeInputPanel() {
+        entriesTableModel = new EntityTableModel(TableHeaders.ENTRIES_HEADER);
+        JTable entryTable = new JTable(entriesTableModel);
+        JScrollPane entryScrollPane = new JScrollPane(entryTable);
+        tablePane.addTab(ENTRIES_NAME, entryScrollPane);
 
+        this.add(tablePane, gridManager);
     }
 
-    private void initializeFeaturesPanel() {
+    private void initializeControlPanel() {
+        // Инициализация менеджера расположения
+        GridBagConstraints gridManager = new GridBagConstraints();
+        gridManager.gridx = 0; gridManager.gridy = 1;
+        gridManager.weightx = 1.0; gridManager.weighty = 0.2;
 
+        final String INPUT_BUTTON = "Добавить";
+        final String SAVE_BUTTON = "Сохранить";
+        final String STATISTIC_BUTTON = "Формирование статистики";
+
+        JButton inputButton = new JButton(INPUT_BUTTON); 
+        JButton saveButton = new JButton(SAVE_BUTTON);
+        JTextField filterText = new JTextField();
+        JButton statButton = new JButton(STATISTIC_BUTTON);
+        
+        JPanel controlPanel = new JPanel(new GridLayout(1, 4, 5, 5));
+        controlPanel.add(inputButton);
+        controlPanel.add(saveButton);
+        controlPanel.add(filterText);
+        controlPanel.add(statButton);
+
+        this.add(controlPanel, gridManager);
     }
 }
