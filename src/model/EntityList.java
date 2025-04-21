@@ -1,13 +1,25 @@
 package model;
 import model.entities.Entity;
-import model.utils.BookListUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EntityList extends ArrayList<T> {
-    @Override
-    public void add(int index, T element) {
-        BookListUtil bookListUtil = new BookListUtil();
-        
-    };
+abstract public class EntityList<T extends Entity> {
+    protected List<T> entities;
+
+    public EntityList() {
+        entities = new ArrayList<>();
+    }
+
+    public List<T> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<T> entities) {
+        this.entities = entities;
+    }
+
+    abstract public void initializeEntityList();
+
+    
 }

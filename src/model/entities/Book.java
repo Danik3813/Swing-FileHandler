@@ -3,6 +3,7 @@ package model.entities;
 public class Book extends Entity {
     private String author;
     private String name;
+    // TODO: заменить год написания на Java Calendar
     private int writingYear;
     private int quanitity;
 
