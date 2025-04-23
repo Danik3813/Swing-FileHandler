@@ -1,26 +1,35 @@
 package view;
 
-public class TableHeaders {
-    public final static String[] BOOKS_HEADER = {
+public enum TableHeaders {
+    BOOKS_HEADER(new String[] {
         "ID",
         "Автор",
         "Название",
         "Год написания",
         "Число на складе"
-    };
-
-    public final static String[] PERSONS_HEADER = {
+    }),
+    PERSONS_HEADER(new String[] {
         "ID",
         "Имя",
         "Фамилия",
-        "Отчество"
-    };
-
-    public final static String[] ENTRIES_HEADER = {
+        "Отчество",
+    }),
+    ENTRIES_HEADER(new String[] {
         "ID",
         "ID книги",
         "ID читателя",
         "Дата выдачи",
-        "Дата сдачи"
-    };
+        "Дата сдачи",
+        "Дата факт. возврата"
+    });
+
+    private String[] headers;
+
+    private TableHeaders(String[] headers)  {
+        this.headers = headers;
+    }
+
+    public String[] getHeaders() {
+        return headers;
+    }
 }

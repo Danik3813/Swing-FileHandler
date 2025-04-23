@@ -1,5 +1,6 @@
 package controller;
 
+import controller.listeners.InputButtonListener;
 import model.FileHandlerModel;
 import model.entities.Book;
 import model.entities.Entry;
@@ -16,10 +17,15 @@ public class FileHandlerController {
     }
 
     public void defaultInitialization() {
+        uploadData();
+        initializeListeners();
+    }
+
+    private void uploadData() {
         var books = fileHandlerModel.getBookList().getEntities();
 
         for (Book book : books) {
-            fileHandlerGUI.getBookTableModel().addRow(new Object[] {
+            fileHandlerGUI.getDataTablePane().getBookTableModel().addRow(new Object[] {
                 book.getID(),
                 book.getAuthor(),
                 book.getName(),
@@ -31,7 +37,7 @@ public class FileHandlerController {
         var persons = fileHandlerModel.getPersonList().getEntities();
         
         for (Person person : persons) {
-            fileHandlerGUI.getPersonTableModel().addRow(new Object[] {
+            fileHandlerGUI.getDataTablePane().getPersonTableModel().addRow(new Object[] {
                 person.getID(),
                 person.getName(),
                 person.getSurname(),
@@ -42,7 +48,7 @@ public class FileHandlerController {
         var entries = fileHandlerModel.getEntriesList().getEntities();
 
         for (Entry entry : entries) {
-            fileHandlerGUI.getEntriesTableModel().addRow(new Object[] {
+            fileHandlerGUI.getDataTablePane().getEntriesTableModel().addRow(new Object[] {
                 entry.getID(),
                 entry.getBookID(),
                 entry.getPersonID(),
@@ -52,5 +58,7 @@ public class FileHandlerController {
         }
     }
 
-    private 
+    private void initializeListeners() {
+        fileHandlerGUI.getControlPanel().getInputButton().addActionListener(new InputButtonListener(fileHandlerGUI, fileHandlerModel));
+    }
 }
