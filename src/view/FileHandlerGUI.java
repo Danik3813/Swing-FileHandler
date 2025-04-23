@@ -2,10 +2,15 @@ package view;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Dialog;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -13,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controller.listeners.BookButtonListener;
+import view.dialogs.InputForm;
 
 public class FileHandlerGUI extends JFrame {
     private EntityTableModel bookTableModel;
@@ -20,8 +26,9 @@ public class FileHandlerGUI extends JFrame {
     private EntityTableModel entriesTableModel;
     private final static JTabbedPane tablePane = new JTabbedPane(JTabbedPane.TOP);
 
-    public FileHandlerGUI(String title) {
+    public FileHandlerGUI(String title, int width, int height) {
         super(title);
+        this.setSize(width, height);
     }
 
     public EntityTableModel getBookTableModel() {
@@ -36,8 +43,7 @@ public class FileHandlerGUI extends JFrame {
         return entriesTableModel;
     }
 
-    public void initializeGUI(int width, int height) {
-        setSize(width, height);
+    public void initializeGUI() {
         this.setLayout(new GridBagLayout());
 
         // Инициализация компонентов окна
@@ -83,20 +89,30 @@ public class FileHandlerGUI extends JFrame {
         gridManager.gridx = 0; gridManager.gridy = 1;
         gridManager.weightx = 1.0; gridManager.weighty = 0.2;
 
-        final String INPUT_BUTTON = "Добавить";
-        final String SAVE_BUTTON = "Сохранить";
-        final String STATISTIC_BUTTON = "Формирование статистики";
+        final String INPUT_TEXT = "Добавить";
+        final String SAVE_TEXT = "Сохранить";
+        final String SEARCH_TEXT = "Поиск";
+        final String STATISTIC_TEXT = "Статистика";
 
-        JButton inputButton = new JButton(INPUT_BUTTON); 
-        JButton saveButton = new JButton(SAVE_BUTTON);
-        JTextField filterText = new JTextField();
-        JButton statButton = new JButton(STATISTIC_BUTTON);
+        InputForm inputForm = new InputForm(this, "Добавление данных", 300, 300);
+        inputForm.initializeInputForm();
+
+        JButton inputButton = new JButton(INPUT_TEXT);
+        inputButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                inputForm.setVisible(true);
+            }
+        });
+        JButton saveButton = new JButton(SAVE_TEXT);
+        JButton searchButton = new JButton(SEARCH_TEXT);;
+        JButton statButton = new JButton(STATISTIC_TEXT);
         
         JPanel controlPanel = new JPanel(new GridLayout(1, 4, 5, 5));
+        controlPanel.add(searchButton);
+        controlPanel.add(statButton);
         controlPanel.add(inputButton);
         controlPanel.add(saveButton);
-        controlPanel.add(filterText);
-        controlPanel.add(statButton);
 
         this.add(controlPanel, gridManager);
     }

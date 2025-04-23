@@ -7,8 +7,8 @@ public class Main {
         FileHandlerModel fileHandlerModel = new FileHandlerModel();
         fileHandlerModel.initializeModel();
 
-        var fileHandlerGUI = new FileHandlerGUI("Библиотечный учёт");
-        fileHandlerGUI.initializeGUI(600, 600);
+        var fileHandlerGUI = new FileHandlerGUI("Библиотечный учёт", 700, 500);
+        fileHandlerGUI.initializeGUI();
 
         FileHandlerController fileHandlerController = new FileHandlerController(fileHandlerModel, fileHandlerGUI);
         fileHandlerController.defaultInitialization();
