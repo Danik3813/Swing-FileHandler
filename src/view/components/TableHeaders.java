@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 public enum TableHeaders {
     BOOKS_HEADER(new String[] {
@@ -20,7 +20,7 @@ public enum TableHeaders {
         "ID читателя",
         "Дата выдачи",
         "Дата сдачи",
-        "Дата факт. возврата"
+        // "Дата факт. возврата"
     });
 
     private String[] headers;

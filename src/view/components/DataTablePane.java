@@ -4,8 +4,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
-import view.TableHeaders;
-
 public class DataTablePane extends JTabbedPane {
     private EntityTableModel bookTableModel;
     private EntityTableModel personTableModel;
