@@ -6,22 +6,21 @@ import java.util.List;
 
 import model.entities.Entry;
 
-public class EntriesSaver extends CSVSaver {
-    private List<Entry> entries;
+public class EntriesSaver extends CSVSaver<Entry> {
     private final static String FILE_HEADER = "id,book_id,person_id,issue_date,given_date";
 
     public EntriesSaver(String FILE_NAME, List<Entry> entries) {
-        super(FILE_NAME);
-        this.entries = entries;
+        super(FILE_NAME, entries);
     }
 
     @Override
     public void save() {
         try (BufferedWriter entriesWriter = new BufferedWriter(new FileWriter(FILE_NAME))) {
             entriesWriter.write(FILE_HEADER);
-            for (Entry entry : entries) {
+            for (Entry entry : entities) {
                 // TODO: использовать StringBuilder
 
+                entriesWriter.newLine();
                 var entryID = Integer.toString(entry.getID()) + ",";
                 var bookID = Integer.toString(entry.getBookID()) + ",";
                 var personID = Integer.toString(entry.getPersonID()) + ",";

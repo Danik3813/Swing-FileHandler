@@ -19,7 +19,11 @@ abstract public class EntityList<T extends Entity> {
         this.entities = entities;
     }
 
+    public int getNewID() {
+        return entities.get(entities.size() - 1).getID() + 1;
+    }
+
     abstract public void initializeEntityList();
 
-    
+    abstract public void saveEntityList();
 }

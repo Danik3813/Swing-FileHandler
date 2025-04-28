@@ -1,16 +1,14 @@
 package model;
 
-import java.util.List;
-
-import model.entities.Book;
 import model.entities.Entry;
-import model.entities.Person;
 import model.exceptions.EntityException;
 import model.readers.CSVReader;
 import model.readers.EntryReader;
+import model.savers.CSVSaver;
+import model.savers.EntriesSaver;
 import model.utils.EntriesListUtil;
 
-public class EntriesList extends EntityList<Entry> implements MultiEntityListInterface<Entry, Book, Person> {
+public class EntriesList extends EntityList<Entry> implements EntityListInterface<Entry> {
     @Override
     public void initializeEntityList() {
         CSVReader<Entry> entriesReader = new EntryReader(FilesName.ENTRIES.getFileName());
@@ -19,10 +17,16 @@ public class EntriesList extends EntityList<Entry> implements MultiEntityListInt
     }
 
     @Override
-    public void push(Entry entry, List<Book> books, List<Person> persons) {
+    public void saveEntityList() {
+        CSVSaver<Entry> entriesSaver = new EntriesSaver(FilesName.ENTRIES.getFileName(), entities);
+        entriesSaver.save();
+    }
+
+    @Override
+    public void push(Entry entry) {
         EntriesListUtil entriesListUtil = new EntriesListUtil();
         try {
-            entriesListUtil.isEntityCorrect(entry, books, persons);
+            entriesListUtil.isEntityCorrect(entry);
             entities.add(entry);
         } catch (EntityException e) {
             System.err.println(e.getMessage());
@@ -30,7 +34,8 @@ public class EntriesList extends EntityList<Entry> implements MultiEntityListInt
     }
 
     @Override
-    public void update(Entry entry, List<Book> books, List<Person> persons) {
+    public void update(Entry entry) {
 
     }
+
 }

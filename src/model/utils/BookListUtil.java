@@ -5,7 +5,7 @@ import model.entities.Book;
 import model.exceptions.EntityException;
 import model.exceptions.NamesOfEntitiesExceptions;
 
-public class BookListUtil implements SingleEntityCorrectInterface<Book> {
+public class BookListUtil implements EntityCorrectInterface<Book> {
     @Override
     public void isEntityCorrect(Book book) throws EntityException {
         if (book.getID() < 0) 

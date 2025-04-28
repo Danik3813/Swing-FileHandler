@@ -1,6 +1,10 @@
 package controller;
 
-import controller.listeners.InputButtonListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import controller.control_panel.ControlPanelController;
+import controller.data_table.DataTableController;
 import model.FileHandlerModel;
 import model.entities.Book;
 import model.entities.Entry;
@@ -23,8 +27,10 @@ public class FileHandlerController {
 
     private void uploadData() {
         var books = fileHandlerModel.getBookList().getEntities();
+        List<Integer> listBookID = new ArrayList<>();
 
         for (Book book : books) {
+            listBookID.add(book.getID());
             fileHandlerGUI.getDataTablePane().getBookTableModel().addRow(new Object[] {
                 book.getID(),
                 book.getAuthor(),
@@ -35,8 +41,10 @@ public class FileHandlerController {
         }
 
         var persons = fileHandlerModel.getPersonList().getEntities();
+        List<Integer> listPersonID = new ArrayList<>();
         
         for (Person person : persons) {
+            listPersonID.add(person.getID());
             fileHandlerGUI.getDataTablePane().getPersonTableModel().addRow(new Object[] {
                 person.getID(),
                 person.getName(),
@@ -56,9 +64,21 @@ public class FileHandlerController {
                 entry.getGivenDate()
             });
         }
+
+        Integer[] arrayBookID = listBookID.toArray(new Integer[0]);
+        fileHandlerGUI.getControlPanel().getInputForm().getEntriesPanel().setValuesBookIDComboBox(arrayBookID);
+
+        Integer[] arrayPersonID = listPersonID.toArray(new Integer[0]);
+        fileHandlerGUI.getControlPanel().getInputForm().getEntriesPanel().setValuesPersonsIDComboBox(arrayPersonID);
     }
 
     private void initializeListeners() {
-        fileHandlerGUI.getControlPanel().getInputButton().addActionListener(new InputButtonListener(fileHandlerGUI, fileHandlerModel));
+        // Контроллер панели управления (поиск, статистика, добавление, сохранение)
+        ControlPanelController controlPanelController = new ControlPanelController(fileHandlerGUI, fileHandlerModel);
+        controlPanelController.initializeControlPanelControllers();
+        
+        // Контроллер таблицы данных (DataTablePane)
+        DataTableController dataTableController = new DataTableController(fileHandlerGUI, fileHandlerModel);
+        dataTableController.initializeListeners();
     }
 }

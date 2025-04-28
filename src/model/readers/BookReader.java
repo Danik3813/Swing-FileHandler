@@ -2,17 +2,12 @@ package model.readers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import model.entities.Book;
 
 public class BookReader extends CSVReader<Book> {
-    private List<Book> books;
-
     public BookReader(String FILE_NAME) {
         super(FILE_NAME);
-        books = new ArrayList<>();
     }
 
     @Override
@@ -30,7 +25,7 @@ public class BookReader extends CSVReader<Book> {
                     Integer.parseInt(CSVbook[3]),
                     Integer.parseInt(CSVbook[4])
                 );
-                books.add(book);
+                entities.add(book);
             }
         } catch(NumberFormatException e) {
             System.err.println(e.getMessage());
@@ -38,10 +33,5 @@ public class BookReader extends CSVReader<Book> {
         catch (Exception e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    @Override
-    public List<Book> getEntities() {
-        return books;
     }
 }

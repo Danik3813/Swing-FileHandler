@@ -3,7 +3,6 @@ package view.dialogs.components;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,8 +14,8 @@ public class BooksPanel extends JPanel{
     private final String COUNT_TEXT = "Количество на складе";
     private final String INPUT_TEXT = "Добавить";
 
-    private final int COLUMNS_COUNT = 5;
-    private final int ROWS_COUNT = 2;
+    private final int ROWS_COUNT = 5;
+    private final int COLUMNS_COUNT = 2;
     private final int H_GAP = 5;
     private final int V_GAP = 5;
 
@@ -27,7 +26,7 @@ public class BooksPanel extends JPanel{
     private JButton uploadButton;
 
     public BooksPanel() {
-        this.setLayout(new GridLayout(COLUMNS_COUNT, ROWS_COUNT, H_GAP, V_GAP));
+        this.setLayout(new GridLayout(ROWS_COUNT, COLUMNS_COUNT, H_GAP, V_GAP));
     }
 
     public JTextField getAuthorTextField() {

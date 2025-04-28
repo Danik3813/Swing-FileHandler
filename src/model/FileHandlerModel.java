@@ -3,9 +3,9 @@ package model;
 import model.entities.*;
 
 public class FileHandlerModel {
-    EntityList<Book> bookList;
-    EntityList<Person> personList;
-    EntityList<Entry> entriesList;
+    BookList bookList;
+    PersonList personList;
+    EntriesList entriesList;
 
     public FileHandlerModel() {
         bookList = new BookList();
@@ -19,15 +19,21 @@ public class FileHandlerModel {
         entriesList.initializeEntityList();
     }
 
-    public EntityList<Book> getBookList()  {
+    public BookList getBookList()  {
         return bookList;
     }
 
-    public EntityList<Person> getPersonList()  {
+    public PersonList getPersonList()  {
         return personList;
     }
 
-    public EntityList<Entry> getEntriesList()  {
+    public EntriesList getEntriesList()  {
         return entriesList;
+    }
+
+    public void saveModel() {
+        bookList.saveEntityList();
+        personList.saveEntityList();
+        entriesList.saveEntityList();
     }
 }

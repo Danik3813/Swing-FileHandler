@@ -4,7 +4,7 @@ import model.entities.Person;
 import model.exceptions.EntityException;
 import model.exceptions.NamesOfEntitiesExceptions;
 
-public class PersonListUtil implements SingleEntityCorrectInterface<Person> {
+public class PersonListUtil implements EntityCorrectInterface<Person> {
     @Override
     public void isEntityCorrect(Person person) throws EntityException {
         if (person.getID() < 0)
